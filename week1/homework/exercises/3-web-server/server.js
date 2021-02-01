@@ -27,7 +27,6 @@ const server = http.createServer((req, res) => {
 					res.end(content, 'utf8');
 				})
 			} else {
-				// some server error
 				res.writeHead(500);
 				res.end(`Server error ${err.code}`);
 			}
@@ -43,16 +42,3 @@ const server = http.createServer((req, res) => {
 const PORT = process.env.PORT || 3000;
 
 server.listen(PORT, () => console.log(`server is running on ${PORT}`));
-
-
-
-
-
-// //create a server
-// let server = http.createServer(function (req, res) {
-// 	// YOUR CODE GOES IN HERE
-// 	res.write('Hello World!'); // Sends a response back to the client
-// 	res.end(); // Ends the response
-// });
-
-// server.listen(3000); // The server starts to listen on port 3000
