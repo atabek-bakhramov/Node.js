@@ -13,7 +13,7 @@ let numbers = ["12", "846", "2", "1236"];
 // YOUR CODE GOES HERE
 
 // This code snippet follows the requirements of the exercise 2:
-// const leftPad = require('./padLeft.js');
+// const leftPad = require('left-pad');
 // numbers.forEach(element => {
 //   console.log(leftPad(element, 5, '_'));
 // });
