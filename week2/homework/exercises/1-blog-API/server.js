@@ -29,8 +29,13 @@ const createBlog = (req, res) => {
 };
 
 const updateBlog = (req, res) => {
-  if (!checkBlogExists(req) || isInvalid(req)) {
-    res.status(400);
+  if (!checkBlogExists(req)) {
+    res.status(404);
+    res.send('The blog is Not Found');
+    return;
+  }
+  if (isInvalid(req)) {
+    res.status(400); 
     res.send('Invalid request');
     return;
   }
@@ -48,8 +53,8 @@ const updateBlog = (req, res) => {
 
 const deleteBlog = (req, res) => {
   if (!checkBlogExists(req)) {
-    res.status(400);
-    res.send('Invalid request');
+    res.status(404);
+    res.send('The blog is Not Found');
     return;
   }
   const title = req.params.title;
@@ -60,8 +65,8 @@ const deleteBlog = (req, res) => {
 
 const readBlog = (req, res) => {
   if (!checkBlogExists(req)) {
-    res.status(400);
-    res.send('Invalid request');
+    res.status(404);
+    res.send('The blog is Not Found');
     return;
   }
   const title = req.params.title;
@@ -74,13 +79,19 @@ const readBlog = (req, res) => {
 
 const showBlogs = (req, res) => {
   if (fs.readdirSync(path.join(__dirname, '/blogs')).length === 0) {
-    res.status(400);
-    res.send('Invalid request');
+    res.status(404);
+    res.send('The blogs are Not Found');
   } else {
-    const listOfBlogs = fs.readdirSync(path.join(__dirname, "/blogs"));
+    const listOfBlogs = fs.readdirSync(path.join(__dirname, '/blogs'));
+    const showBlogsTitles = listOfBlogs.map(blog => {
+      const readBlog = fs.readFileSync(path.join(__dirname, '/blogs', blog));
+      const blogStringed = readBlog.toString();
+      const parsedJson = JSON.parse(blogStringed);
+      return { title: parsedJson.title };
+    });
     res.setHeader("Content-Type", "application/json");
     res.status(200);
-    res.send(listOfBlogs);
+    res.send(showBlogsTitles);
   }
 };
 
