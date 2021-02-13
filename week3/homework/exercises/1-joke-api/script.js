@@ -14,10 +14,10 @@ const fetch = require('node-fetch');
 
 const app = express();
 
-function printChuckNorrisJoke() {
+const printChuckNorrisJoke = () => {
     app.get('/', async (req, res) => {
       try {
-        const response = await fetch('http://api.icndb.com/joasdkes/random121');
+        const response = await fetch('http://api.icndb.com/jokes/random');
         const data = await response.json();
         console.log(data.value.joke);
       } catch (error) {
@@ -28,4 +28,4 @@ function printChuckNorrisJoke() {
 
 printChuckNorrisJoke();
 
-app.listen(3000)
+app.listen(3000);
