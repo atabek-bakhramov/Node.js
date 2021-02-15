@@ -1,6 +1,5 @@
 const express = require('express');
 const exphbs  = require('express-handlebars');
-const path = require('path');
 const axios = require('axios');
 const bodyParser = require('body-parser');
 
@@ -8,7 +7,7 @@ const app = express();
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('public'));
 
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
@@ -31,9 +30,7 @@ app.post('/weather', (req, res) => {
         })
         .catch(error => {
             res.status(404);
-            res.render('index', {
-                temperature: `${req.body.cityName} is not found`
-            })
+            res.render('404', { layout: 'error' });
         })
 });
 
