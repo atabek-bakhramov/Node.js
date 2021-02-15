@@ -8,29 +8,51 @@
  * Hints:
  * - for basic authentication the username and password need to be base64 encoded
  */
-
-const express = require('express');
-const fetch = require('node-fetch');
-const app = express();
+// One way with setting up the server:
+// const express = require('express');
+// const fetch = require('node-fetch');
+// const app = express();
  
-const printBooks = () => {
-  app.get('/', async (req, res) => {
-    try {
-      const response = await fetch(
-        'https://restapiabasicauthe-sandbox.mxapps.io/api/books',
-        {
-          method: 'GET',
-          headers: { 'Authorization': 'Basic YWRtaW46aHZnWDhLbFZFYQ==' }
-        }
-      );
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.log(error.message);
-    }
-  });
-}
+// const printBooks = () => {
+//   app.get('/', async (req, res) => {
+//     try {
+//       const response = await fetch(
+//         'https://restapiabasicauthe-sandbox.mxapps.io/api/books',
+//         {
+//           method: 'GET',
+//           headers: { 'Authorization': 'Basic YWRtaW46aHZnWDhLbFZFYQ==' }
+//         }
+//       );
+//       const data = await response.json();
+//       console.log(data);
+//     } catch (error) {
+//       console.log(error.message);
+//     }
+//   });
+// };
+
+// printBooks();
+
+// app.listen(3000);
+
+
+// Another way:
+const fetch = require('node-fetch');
+
+const printBooks = async () => {
+  try {
+    const response = await fetch(
+      'https://restapiabasicauthe-sandbox.mxapps.io/api/books',
+      {
+        method: 'GET',
+        headers: { 'Authorization': 'Basic YWRtaW46aHZnWDhLbFZFYQ==' }
+      }
+    );
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 printBooks();
-
-app.listen(3000);
